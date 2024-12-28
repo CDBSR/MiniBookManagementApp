@@ -7,6 +7,11 @@ if(!loginData || loginData.email !== 'admin@empher.com'){
     window.location.href = 'index.html';
 }
 
+window.onload = async () =>{
+    let arr = await fetchBooks();
+    displayAllBooks(arr);
+};
+
 const form = document.getElementById('addBook-form');
 const bookcont = document.getElementById('books-container');
 
@@ -22,7 +27,8 @@ form.addEventListener('submit', async function (){
         title,
         author,
         category,
-        isAvailable : false
+        isAvailable : false,
+        isVarified: false
     };
 
     try{
@@ -70,15 +76,70 @@ function displayAllBooks(books){
         let category = document.createElement('h3');
         title.textContent = `Category : ${el.category}`;
 
-        if (el.isAvailable == false){
-            card.classList.add("Not Available");
-        }
+        let isvailable = document.createElement('h3');
+        title.textContent = `Availability : ${el.isAvailable ? 'Available' : 'Not Available'}`;
 
-        let staus = document.createElement('h3');
-        title.textContent = `Status : ${el.isAvailable} == true ? "Status : Available" : "Status : Not Available"` ;
+        let isvarified = document.createElement('h3');
+        title.textContent = `Status : ${el.isVarified ? 'Verified' : 'Pending'}`;
+        
+        let updateverifiedBtn = document.createElement('button');
+        updateverifiedBtn.setAttribute('class', 'bookBtns');
+        updateverifiedBtn.textContent = `Toggle Verified`;
+        updateverifiedBtn.addEventListener('click', function(){
+            verifiedBook(el);
+        });
+        updateverifiedBtn.disabled = true;
 
-         
+        let deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute('class', 'bookBtns');
+        deleteBtn.textContent = `Delete Book`;
+        deleteBtn.addEventListener('click', function(){
+            deleteBook();
+        });
 
+        card.append(
+            title,
+            author,
+            category,
+            isvarified,
+            isvailable,
+            updateverifiedBtn,
+            deleteBtn
+        );
+
+        cont.append(card);
     });
+
+}
+
+
+async function verifiedBook(el){
+    let updatestatus = {...el, isVarified : !el.isVarified};
+
+    try{
+        await fetch(`${baseurl}/books/${el.id}`,{
+            method : 'PATCH',
+            headers: {
+                'content-type' : 'application/json',
+            },
+            body: JSON.stringify(updatestatus),
+        });
+        alert('Status updated..');
+        form.reset();
+    } catch(err){
+        console.log('errro in toggle status', err);
+    }
+}
+
+async function deleteBook(el){
+    try{
+        await fetch(`${baseurl}/books/${el.id}`,{
+            method : 'DELETE',
+        });
+        alert('book deleted..');
+        form.reset();
+    } catch(err){
+        console.log('errro in deleting book', err);
+    }
 }
 
