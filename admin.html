@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Book Management App</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/admin.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav"></div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Admin Management Page</h1>
+        <section id="add-book-section">
+            <form action="" id="addBook-form">
+                <input type="text" id="title" placeholder="Enter Book Title" required>
+                <input type="text" id="author" placeholder="Enter Author">
+                <select id="category">
+                    <option value="fiction">Fiction</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="technical">Technical</option>
+                </select>
+
+                <button type="submit" id="addBook">Add Book</button>
+            </form>
+        </section>
+
+        <section id="books-section">
+            <h2>Books List</h2>
+            <div id="books-container" class="grid-container"></div>
+        </section>
+        
+    </main>
+</body>
+<script src="./scripts/index.js" type="module"></script>
+<script src="./scripts/admin.js" type="module"></script>
+</html>
