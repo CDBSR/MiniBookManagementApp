@@ -42,13 +42,6 @@ nav a {
     flex-direction: column;
  }
 
- input {
-    padding: 10px;
-    background-color: rgb(184, 233, 217);
-    border: 1px solid #ddd;
-
- }
-
  #loginBtn {
     padding: 10px;
     background-color: #097b87;
