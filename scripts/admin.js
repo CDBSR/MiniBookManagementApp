@@ -1,4 +1,7 @@
 import { baseurl } from "./baseurl.js";
+import { navbar } from "./navbar.js";
+
+navbar();
 
 const loginData = JSON.parse(localStorage.getItem('loginData'));
 
@@ -54,7 +57,7 @@ async function fetchBooks() {
         const res = await fetch(`${baseurl}/books`);
         const books = await res.json();
         // display books
-        displayAllBooks(books);
+        //displayAllBooks(books);
     }
     catch(err){
         console.log("error in getttng books", err);
@@ -82,7 +85,7 @@ function displayAllBooks(books){
         title.textContent = `Availability : ${el.isAvailable ? 'Available' : 'Not Available'}`;
 
         let isvarified = document.createElement('h3');
-        title.textContent = `Status : ${el.isVarified ? 'Verified' : 'Pending'}`;
+        title.textContent = `Status : ${el.isVarified ? 'Pending' : 'Verified'}`;
         
         let updateverifiedBtn = document.createElement('button');
         updateverifiedBtn.setAttribute('class', 'bookBtns');

@@ -1,4 +1,7 @@
 import { baseurl } from "./baseurl.js"; 
+import { navbar } from "./navbar.js";
+
+navbar();
 
 window.onload = function (){
     const loginData = JSON.parse(localStorage.getItem('loginData'));
