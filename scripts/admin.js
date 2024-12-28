@@ -27,7 +27,8 @@ form.addEventListener('submit', async function (){
         title,
         author,
         category,
-        isAvailable : false,
+        borrowDays: null,
+        isAvailable : true,
         isVarified: false
     };
 
@@ -53,6 +54,7 @@ async function fetchBooks() {
         const res = await fetch(`${baseurl}/books`);
         const books = await res.json();
         // display books
+        displayAllBooks(books);
     }
     catch(err){
         console.log("error in getttng books", err);
